@@ -7,7 +7,7 @@ import { AuthContextProvider } from "./context/Authcontext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-axios.defaults.baseURL = "http://localhost:8800/api/";
+axios.defaults.baseURL = "https://facebookserver-hvmq.onrender.com/api/";
 root.render(
   <BrowserRouter>
     <React.StrictMode>
