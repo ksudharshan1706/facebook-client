@@ -21,7 +21,7 @@ export default function Messenger() {
   const scrollRef = useRef();
   // socket.current = io("http://localhost:5000");
   useEffect(() => {
-    socket.current = io("http://localhost:5000");
+    socket.current = io("https://facebooksocket.onrender.com");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
