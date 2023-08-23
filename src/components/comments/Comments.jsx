@@ -51,7 +51,7 @@ const Close = styled.div`
   cursor: pointer;
 `;
 const Button = styled.div`
-background-color: #cc1a00;
+background-color: #1877f2;
 font-weight: 500;
 color: white;
 border: none;
@@ -65,6 +65,7 @@ const Comments = ({post,setComment}) => {
     const { user: currentUser } = useContext(AuthContext);
     const [desc,setDesc] = useState("")
     const [comments, setComments] = useState([]);
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER
     useEffect(() => {
         const fetchComments = async () => {
           try {
@@ -94,7 +95,8 @@ const Comments = ({post,setComment}) => {
             <img src={post.img} alt="" className="commentImg" />
             
             <div className='comment'>
-                <Avatar src={currentUser.profilePicture} />
+            <Avatar src={currentUser.profilePicture?currentUser.profilePicture:PF+"person/noAvatar.png"} />
+              
                 <Input placeholder="Add a comment..." onChange={(e)=>setDesc(e.target.value)}/>
                 <Button onClick={handleComment} >Comment</Button>
             </div>

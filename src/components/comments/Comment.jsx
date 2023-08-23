@@ -39,6 +39,7 @@ const Text = styled.span`
 
 const Comment = ({ data }) => {
   const [channel, setChannel] = useState({});
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
   useEffect(() => {
     const fetchComment = async () => {
       const res = await axios.get(`/users/${data.userId}`);
