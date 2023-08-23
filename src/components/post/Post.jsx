@@ -5,13 +5,16 @@ import { useContext, useEffect, useState } from "react"
 import {format} from "timeago.js"
 import {Link} from "react-router-dom"
 import { AuthContext } from "../../context/Authcontext"
+import DeletePost from "../delete/DeletePost"
+import Comments from "../comments/Comments"
 export default function Post({post}) {
     const [like,setLike] = useState(post.likes.length)
     const [isLiked,setIsLiked] = useState(false)
     const [user,setUser] = useState({})
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;  
     const { user: currentUser } = useContext(AuthContext);
-    
+    const [open,setOpen]=useState(false)
+    const [comment,setComment]=useState(false)
     useEffect(() => {
         setIsLiked(post.likes.includes(currentUser._id));
       }, [currentUser._id, post.likes]);
@@ -45,7 +48,9 @@ export default function Post({post}) {
                     <span className="postDate">{format(post.createdAt)}</span>    
                 </div>
                 <div className="postTopRight">
-                    <MoreVert/>
+                    <MoreVert onClick={()=>setOpen(!open)}/>
+                    {currentUser._id==post.userId && open && <DeletePost post={post} setOpen={setOpen} /> }
+                    
                 </div>
             </div>
             <div className="postCenter">
@@ -61,7 +66,8 @@ export default function Post({post}) {
                     </span>
                 </div>
                 <div className="postBottomRight">
-                    <span className="postCommentText">{post.comment} comments</span>
+                <span className="postCommentText" onClick={()=>setComment(!comment)}>{post.comment} comments</span>
+                    {comment && <Comments post={post} setComment={setComment} />}
                 </div>
             </div>
         </div>
