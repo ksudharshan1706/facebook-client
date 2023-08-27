@@ -141,7 +141,7 @@ export default function Rightbar({ user }) {
                   alt=""
                   className="rightbarFollowingImg"
                 />
-                <span className="rightbarFollowingName">{friend.username}</span>
+                <span className="rightbarFollowingName" style={{color:"black"}}>{friend.username}</span>
               </div>
             </Link>
           ))}
