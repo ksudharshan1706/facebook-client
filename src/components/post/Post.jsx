@@ -14,11 +14,22 @@ export default function Post({post}) {
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;  
     const { user: currentUser } = useContext(AuthContext);
     const [open,setOpen]=useState(false)
+    const [noOfComments, setNoOfComments] = useState(0);
+    
     const [comment,setComment]=useState(false)
     useEffect(() => {
         setIsLiked(post.likes.includes(currentUser._id));
       }, [currentUser._id, post.likes]);
-      
+    useEffect(()=>{
+        const fetchComments = async () => {
+            try {
+              const res = await axios.get(`/comments/${post._id}`);
+              setNoOfComments(res.data.length);
+            } catch (err) {}
+          };
+          fetchComments();
+        }, [post]);
+
     useEffect(()=>{
         const fetchUser = async () =>{
           const res = await axios.get(`/users?userId=${post.userId}`)
@@ -66,7 +77,7 @@ export default function Post({post}) {
                     </span>
                 </div>
                 <div className="postBottomRight">
-                <span className="postCommentText" onClick={()=>setComment(!comment)}>{post.comment} comments</span>
+                <span className="postCommentText" onClick={()=>setComment(!comment)}>{noOfComments} comments</span>
                     {comment && <Comments post={post} setComment={setComment} />}
                 </div>
             </div>
