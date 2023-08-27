@@ -66,10 +66,15 @@ export default function Rightbar({ user }) {
     return (
       <>
         <div className="birthdayContainer">
+          {
+          Users[0]?<>
           <img className="birthdayImg" src="assets/gift.png" alt="" />
           <span className="birthdayText">
-            <b>Pola Foster</b> and <b>3 other friends</b> have a birhday today.
+            
+            <b>{Users[0].username}</b> and <b>{Users.length-3>0?Users.length-3:0} other friends</b> have a birhday today.
           </span>
+          </>:null
+          } 
         </div>
         <img className="rightbarAd" src="assets/ad.png" alt="" />
         <h4 className="rightbarTitle">All Users</h4>
