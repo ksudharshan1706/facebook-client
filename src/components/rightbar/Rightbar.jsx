@@ -12,12 +12,20 @@ export default function Rightbar({ user }) {
   const [friends, setFriends] = useState([]);
   // console.log(user)
   const friend = user;
+  const [Users,setUsers] = useState([])
 
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [followed, setFollowed] = useState(
     currentUser.followings.includes(user?._id)
   );
-
+   useEffect(()=>{
+      const getUsers = async() =>{
+          const res = await axios.get("/users/allusers")
+          console.log(res.data)
+          setUsers(res.data)
+      }
+      getUsers()
+    },[])
   useEffect(() => {
     const getFriends = async () => {
       try {
@@ -64,12 +72,12 @@ export default function Rightbar({ user }) {
           </span>
         </div>
         <img className="rightbarAd" src="assets/ad.png" alt="" />
-        {/* <h4 className="rightbarTitle">Online Friends</h4>
+        <h4 className="rightbarTitle">All Users</h4>
         <ul className="rightbarFriendList">
           {Users.map((u) => (
             <Online key={u.id} user={u} />
           ))}
-        </ul> */}
+        </ul>
       </>
     );
   };
